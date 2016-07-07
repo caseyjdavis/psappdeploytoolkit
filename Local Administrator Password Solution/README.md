@@ -1,0 +1,1 @@
+﻿Script to install Local Administrator Password Solution 6.1 via Powershell App Deployment Toolkit
