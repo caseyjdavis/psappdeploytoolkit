@@ -56,15 +56,15 @@ Try {
 	##* VARIABLE DECLARATION
 	##*===============================================
 	## Variables: Application PLEASE FILL OUT EACH VALUE
-	[string]$appVendor = ''
-	[string]$appName = ''
-	[string]$appVersion = ''
-	[string]$appArch = ''
-	[string]$appLang = ''
-	[string]$appRevision = ''
-	[string]$appScriptVersion = ''
-	[string]$appScriptDate = ''
-	[string]$appScriptAuthor = ''
+	[string]$appVendor = 'Google'
+	[string]$appName = 'Chrome'
+	[string]$appVersion = '51.0.2704.103'
+	[string]$appArch = 'x86'
+	[string]$appLang = 'EN'
+	[string]$appRevision = '01'
+	[string]$appScriptVersion = '1.0.0'
+	[string]$appScriptDate = '7/6/2016'
+	[string]$appScriptAuthor = 'Casey Davis'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
 	[string]$installName = ''
@@ -175,7 +175,7 @@ Try {
 		[string]$installPhase = 'Pre-Uninstallation'
 		
 		## Show Welcome Message, close MMC with a 60 second countdown before automatically closing
-		Show-InstallationWelcome -CloseApps 'chrome.exe' -CloseAppsCountdown 60 #// Specify the process name of any app or apps (seperated by a comma) that you would like to be closed before this app is uninstalled
+		Show-InstallationWelcome -CloseApps 'chrome' -CloseAppsCountdown 60 #// Specify the process name of any app or apps (seperated by a comma) that you would like to be closed before this app is uninstalled
 		
         ## Show Progress Message (with the default message)
 		Show-InstallationProgress #//Custom messgae if desired
