@@ -1,0 +1,1 @@
+﻿Script to install Java 8 x86 and x64 via Powershell App Deployment Toolkit
