@@ -56,15 +56,15 @@ Try {
 	##* VARIABLE DECLARATION
 	##*===============================================
 	## Variables: Application PLEASE FILL OUT EACH VALUE
-	[string]$appVendor = 'Google'
-	[string]$appName = 'Chrome'
-	[string]$appVersion = '51.0.2704.103'
-	[string]$appArch = 'x86'
-	[string]$appLang = 'EN'
-	[string]$appRevision = '01'
-	[string]$appScriptVersion = '1.0.0'
-	[string]$appScriptDate = '7/6/2016'
-	[string]$appScriptAuthor = 'Casey Davis'
+	[string]$appVendor = ''
+	[string]$appName = ''
+	[string]$appVersion = ''
+	[string]$appArch = ''
+	[string]$appLang = ''
+	[string]$appRevision = ''
+	[string]$appScriptVersion = ''
+	[string]$appScriptDate = ''
+	[string]$appScriptAuthor = ''
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
 	[string]$installName = ''
@@ -112,13 +112,16 @@ Try {
 		[string]$installPhase = 'Pre-Installation'
 		
 		## Show Welcome Message, closes the specified app if required, allow up to 3 deferrals, verify there is enough disk space to complete the install, and persist the prompt
-		
-        #Show-InstallationWelcome -CloseApps 'iexplore' -AllowDefer -DeferTimes 3 -CheckDiskSpace -PersistPrompt
+		# Show-InstallationWelcome -CloseApps 'iexplore' -AllowDefer -DeferTimes 3 -CheckDiskSpace -PersistPrompt
 		
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
 		
 		## <Perform Pre-Installation tasks here>
+		
+        
+
+
 		
 		##*===============================================
 		##* INSTALLATION 
@@ -133,15 +136,15 @@ Try {
 		
 		## <Perform Installation tasks here>
 		
-        #// Installs the < > *.exe located in the Files directory
+        ## Installs the EXE file using the *.exe located in the Files directory
         #Show-InstallationProgress -StatusMessage "Installing $appVendor $appName $appVersion ..."
         #Write-Log -Message "Installing $appVendor $appName $appVersion ..."
         #Execute-Process -Path '*.exe' -Parameters '/norestart /quiet'
 
-        #// Installs the *.msi located in the Files directory
+        ## Installs the MSI file using the *.msi located in the Files directory
         Show-InstallationProgress -StatusMessage "Installing $appVendor $appName $appVersion ..."
         Write-Log -Message "Installing $appVendor $appName $appVersion ..."
-        Execute-MSI -Action Install -Path 'googlechromestandaloneenterprise.msi' #-AddParameters #// Only needed if you have more to pass to the MSI besides /qb and norestart
+        Execute-MSI -Action Install -Path 'googlechromestandaloneenterprise.msi' ## Uncomment if you need parameters -AddParameters ## if you have more to pass to the MSI besides /qb and norestart
 
         #// Repeat as necessary
 	    
@@ -152,33 +155,37 @@ Try {
 		
 		## <Perform Post-Installation tasks here>
         
-        #// Insert any post-install steps here (delete a desktop shortcut or copy item to startup etc.
-        
+        # Insert any post-install steps here (delete a desktop shortcut or copy item to startup etc.
         #Cleans up icons
         If (Test-Path "$env:PUBLIC\Desktop\Google Chrome.lnk") {Remove-Item "$env:PUBLIC\Desktop\Google Chrome.lnk" -Force}
 
-        #// Sets a custom registry value to indicate that this application was installed using the PSADT
+        # Sets a custom registry value to indicate that this application was installed using the psappdeploytoolkit
         If (!(Test-RegistryValue -Key 'HKLM:\SOFTWARE\Poudre School District\Applications' -Value $appName $appVersion -Verbose)){
               Set-RegistryKey -Key 'HKLM:\SOFTWARE\Poudre School District\Applications' -Value $appVersion $appName -Type String; Write-Log "Added $appname $appVersion to Registry branding" }		
 
 		## Display a message at the end of the install
-		If (-not $useDefaultMsi) { Show-InstallationPrompt -Message "$Appname has been installed successfully. Please reboot your system to continue.  If you have problems or questions about this software, please call the PSD Help Desk at x3456 or open a Help Desk ticket at help.psdschools.org" -ButtonRightText 'OK' -Icon Information -NoWait }
-	    }
-	        ElseIf ($deploymentType -ieq 'Uninstall')
-	    {
+		# If (-not $useDefaultMsi) { Show-InstallationPrompt -Message "$Appname has been installed successfully. Please reboot your system to continue.  If you have problems or questions about this software, please call the PSD Help Desk at x3456 or open a Help Desk ticket at help.psdschools.org" -ButtonRightText 'OK' -Icon Information -NoWait }
+	    # }
+	    #     ElseIf ($deploymentType -ieq 'Uninstall')
+	    # {
+
 		##*===============================================
 		##* PRE-UNINSTALLATION
 		##*===============================================
 		[string]$installPhase = 'Pre-Uninstallation'
 		
 		## Show Welcome Message, close MMC with a 60 second countdown before automatically closing
-		Show-InstallationWelcome -CloseApps 'chrome' -CloseAppsCountdown 60 #// Specify the process name of any app or apps (seperated by a comma) that you would like to be closed before this app is uninstalled
+		Show-InstallationWelcome -CloseApps 'chrome.exe' -CloseAppsCountdown 60 #// Specify the process name of any app or apps (seperated by a comma) that you would like to be closed before this app is uninstalled
 		
         ## Show Progress Message (with the default message)
 		Show-InstallationProgress #//Custom messgae if desired
 		
 		## <Perform Pre-Uninstallation tasks here>
-		
+
+
+
+
+
 		##*===============================================
 		##* UNINSTALLATION
 		##*===============================================
@@ -193,28 +200,35 @@ Try {
 		# <Perform Uninstallation tasks here>
 		
 
-        #// Uninstalls the < > using the *.exe located in the Files directory
+
+
+
+        ## Uninstalls the EXE file using the *.exe located in the Files directory
         #Show-InstallationProgress -StatusMessage "Uninstalling $appVendor $appName $appVersion ..."
         #Write-Log -Message "Uninstalling $appVendor $appName $appVersion ..."
         #Execute-Process -Path '*.exe' -Parameters '/uninstall /quiet /norestart'
 
-        #// Uninstalls the < >
+        ## Uninstalls the MSI file using the *.msi located in the Files directory
         Show-InstallationProgress -StatusMessage "Uninstalling $appVendor $appName $appVersion ..."
         Write-Log -Message "Uninstalling $appVendor $appName $appVersion ..."
         Execute-MSI -Action Uninstall -Path 'googlechromestandaloneenterprise.msi'
-		
+
 		##*===============================================
 		##* POST-UNINSTALLATION
 		##*===============================================
 		[string]$installPhase = 'Post-Uninstallation'
 		
 		## <Perform Post-Uninstallation tasks here>
-        
-        #// Removes the custom registry key value if it exists from the registry
+
+
+
+
+
+        ## Removes the custom registry key value if it exists from the registry
 		If (Test-RegistryValue -Key 'HKLM:\SOFTWARE\Poudre School District\Applications' -Value $appName $appVersion -Verbose) {
             Remove-RegistryKey -Key 'HKLM:\SOFTWARE\Poudre School District\Applications' -Name $appName; Write-Log "Removed $appname from Registry branding"}
 		
-	}
+	    }
 	
 	##*===============================================
 	##* END SCRIPT BODY
