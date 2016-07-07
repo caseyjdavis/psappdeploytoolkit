@@ -162,10 +162,10 @@ Try {
               Set-RegistryKey -Key 'HKLM:\SOFTWARE\Poudre School District\Applications' -Value $appVersion $appName -Type String; Write-Log "Added $appname $appVersion to Registry branding" }		
 
 		## Display a message at the end of the install
-		# If (-not $useDefaultMsi) { Show-InstallationPrompt -Message "$Appname has been installed successfully. Please reboot your system to continue.  If you have problems or questions about this software, please call the PSD Help Desk at x3456 or open a Help Desk ticket at help.psdschools.org" -ButtonRightText 'OK' -Icon Information -NoWait }
-	    # }
-	    #     ElseIf ($deploymentType -ieq 'Uninstall')
-	    # {
+		If (-not $useDefaultMsi) { Show-InstallationPrompt -Message "$Appname has been installed successfully. Please reboot your system to continue.  If you have problems or questions about this software, please call the PSD Help Desk at x3456 or open a Help Desk ticket at help.psdschools.org" -ButtonRightText 'OK' -Icon Information -NoWait }
+	    }
+	        ElseIf ($deploymentType -ieq 'Uninstall')
+	    {
 
 		##*===============================================
 		##* PRE-UNINSTALLATION
