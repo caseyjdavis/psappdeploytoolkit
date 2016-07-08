@@ -155,6 +155,7 @@ Try {
 		## <Perform Post-Installation tasks here>
         
         # Insert any post-install steps here (delete a desktop shortcut or copy item to startup etc.
+
         # Set registry key to disable automatic updating of Java 8
         If (!(Test-RegistryValue -Key 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Value 'SunJavaUpdateSched' -Verbose)){
                       Remove-RegistryKey -Key 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run' -Name 'SunJavaUpdateSched'; Write-Log "Removed Java 8 Registry Key to Disable Autoupdate" }
@@ -164,6 +165,10 @@ Try {
 
         # Unregisters the Java Quick Starter
         If (Test-Path "$env:ProgramFiles(x86)\Java\jre1.8.0_91\bin\jqs.exe") {Execute-Process "$env:ProgramFiles(x86)\Java\jre1.8.0_91\bin\jqs.exe" -Parameters '-unregister'}
+
+        #Copies configuration files
+        Write-Log "Copying Java configuration items to Windows directory"
+        If (Copy-Item "\SupportFiles\" -Destination "$env:windir\Sun\Java\Deployment\" -Recurse -Force) {Write-Log "Java deployment files are copied"}
         
         # Sets a custom registry value to indicate that this application was installed using the psappdeploytoolkit
         If (!(Test-RegistryValue -Key 'HKLM:\SOFTWARE\Poudre School District\Applications' -Value $appName $appVersion -Verbose)){
