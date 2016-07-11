@@ -145,7 +145,18 @@ Try {
         ## Installs the MSI file using the *.msi located in the Files directory
         Show-InstallationProgress -StatusMessage "Installing $appVendor $appName $appVersion ..."
         Write-Log -Message "Installing $appVendor $appName $appVersion ..."
-        Execute-MSI -Action Install -Path 'jre1.8.0_91_x64\jre1.8.0_91.msi' -AddParameters 'JU=0 JAVAUPDATE=0 AUTOUPDATECHECK=0 RebootYesNo=No WEB_JAVA=1 /q'	    
+        Execute-MSI -Action Install -Path 'jre1.8.0_91_x64\jre1.8.0_91.msi' -AddParameters 'JU=0 JAVAUPDATE=0 AUTOUPDATECHECK=0 RebootYesNo=No WEB_JAVA=1 /q'
+        
+        ## Installs the MSI file using the *.msi located in the Files directory
+        Show-InstallationProgress -StatusMessage "Installing $appVendor $appName $appVersion ..."
+        Write-Log -Message "Installing $appVendor $appName $appVersion ..."
+        Execute-MSI -Action Install -Path 'jdk1.8.0_91\jdk1.8.0_91.msi'
+
+        #// Repeat as necessary
+        ## Installs the MSI file using the *.msi located in the Files directory
+        Show-InstallationProgress -StatusMessage "Installing $appVendor $appName $appVersion ..."
+        Write-Log -Message "Installing $appVendor $appName $appVersion ..."
+        Execute-MSI -Action Install -Path 'jdk1.8.0_91_x64\jdk1.8.0_91.msi'   
 
 		##*===============================================
 		##* POST-INSTALLATION
@@ -223,6 +234,16 @@ Try {
         Show-InstallationProgress -StatusMessage "Uninstalling $appVendor $appName $appVersion ..."
         Write-Log -Message "Uninstalling $appVendor $appName $appVersion ..."
         Execute-MSI -Action Uninstall -Path 'jre1.8.0_91\jre1.8.0_91.msi'
+
+        ## Uninstalls the MSI file using the *.msi located in the Files directory
+        Show-InstallationProgress -StatusMessage "Uninstalling $appVendor $appName $appVersion ..."
+        Write-Log -Message "Uninstalling $appVendor $appName $appVersion ..."
+        Execute-MSI -Action Uninstall -Path 'jdk1.8.0_91_x64\jdk1.8.0_91.msi'
+
+        ## Uninstalls the MSI file using the *.msi located in the Files directory
+        Show-InstallationProgress -StatusMessage "Uninstalling $appVendor $appName $appVersion ..."
+        Write-Log -Message "Uninstalling $appVendor $appName $appVersion ..."
+        Execute-MSI -Action Uninstall -Path 'jdk1.8.0_91\jdk1.8.0_91.msi'
 
 		##*===============================================
 		##* POST-UNINSTALLATION
