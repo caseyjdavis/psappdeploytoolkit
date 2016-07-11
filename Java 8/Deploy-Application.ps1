@@ -150,13 +150,13 @@ Try {
         ## Installs the MSI file using the *.msi located in the Files directory
         Show-InstallationProgress -StatusMessage "Installing $appVendor $appName $appVersion ..."
         Write-Log -Message "Installing $appVendor $appName $appVersion ..."
-        Execute-MSI -Action Install -Path 'jdk1.8.0_91\jdk1.8.0_91.msi'
+        Execute-MSI -Action Install -Path 'jdk1.8.0_91\jdk1.8.0_91.msi' -AddParameters '/s ADDLOCAL="ToolsFeature,SourceFeature"'
 
         #// Repeat as necessary
         ## Installs the MSI file using the *.msi located in the Files directory
         Show-InstallationProgress -StatusMessage "Installing $appVendor $appName $appVersion ..."
         Write-Log -Message "Installing $appVendor $appName $appVersion ..."
-        Execute-MSI -Action Install -Path 'jdk1.8.0_91_x64\jdk1.8.0_91.msi'   
+        Execute-MSI -Action Install -Path 'jdk1.8.0_91_x64\jdk1.8.0_91.msi' -AddParameters '/s ADDLOCAL="ToolsFeature,SourceFeature"'  
 
 		##*===============================================
 		##* POST-INSTALLATION
