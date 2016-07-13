@@ -1,1 +1,0 @@
-FilterPatch.exe -cP:\Power2GO\Data\SetupUtility\110718(8.0)\CLVDShellExt.ini -bShellExt "P:\Power2GO\Data\SetupUtility\110718(8.0)\CLVDShellExt.dll"
