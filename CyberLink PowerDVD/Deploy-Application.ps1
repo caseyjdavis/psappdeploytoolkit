@@ -56,15 +56,15 @@ Try {
 	##* VARIABLE DECLARATION
 	##*===============================================
 	## Variables: Application PLEASE FILL OUT EACH VALUE
-	[string]$appVendor = ''
-	[string]$appName = ''
-	[string]$appVersion = ''
-	[string]$appArch = ''
-	[string]$appLang = ''
-	[string]$appRevision = ''
-	[string]$appScriptVersion = ''
-	[string]$appScriptDate = ''
-	[string]$appScriptAuthor = ''
+	[string]$appVendor = 'CyberLink'
+	[string]$appName = 'PowerDVD'
+	[string]$appVersion = '9.5'
+	[string]$appArch = 'x86'
+	[string]$appLang = 'EN'
+	[string]$appRevision = '01'
+	[string]$appScriptVersion = '1.0.0'
+	[string]$appScriptDate = '7/15/2016'
+	[string]$appScriptAuthor = 'Casey Davis'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
 	[string]$installName = ''
@@ -139,12 +139,7 @@ Try {
         ## Installs the EXE file using the *.exe located in the Files directory
         Show-InstallationProgress -StatusMessage "Installing $appVendor $appName $appVersion ..."
         Write-Log -Message "Installing $appVendor $appName $appVersion ..."
-        Execute-Process -Path '*.exe' -Parameters '/norestart /quiet'
-
-        ## Installs the MSI file using the *.msi located in the Files directory
-        Show-InstallationProgress -StatusMessage "Installing $appVendor $appName $appVersion ..."
-        Write-Log -Message "Installing $appVendor $appName $appVersion ..."
-        Execute-MSI -Action Install -Path '*.msi' ## Uncomment if you need parameters -AddParameters ## if you have more to pass to the MSI besides /qb and norestart
+        Execute-Process -Path 'SETUP.exe' -Parameters '/S/v/qn'
 
         #// Repeat as necessary
 	    
@@ -162,7 +157,7 @@ Try {
               Set-RegistryKey -Key 'HKLM:\SOFTWARE\Poudre School District\Applications' -Value $appVersion $appName -Type String; Write-Log "Added $appname $appVersion to Registry branding" }		
 
 		## Display a message at the end of the install
-		If (-not $useDefaultMsi) { Show-InstallationPrompt -Message "$Appname has been installed successfully. Please reboot your system to continue.  If you have problems or questions about this software, please call the PSD Help Desk at x3456 or open a Help Desk ticket at help.psdschools.org" -ButtonRightText 'OK' -Icon Information -NoWait }
+		If (-not $useDefaultMsi) { Show-InstallationPrompt -Message "$Appname has been installed successfully. If you have problems or questions about this software, please call the PSD Help Desk at x3456 or open a Help Desk ticket at help.psdschools.org" -ButtonRightText 'OK' -Icon Information -NoWait }
 	    }
 	        ElseIf ($deploymentType -ieq 'Uninstall')
 	    {
@@ -173,7 +168,7 @@ Try {
 		[string]$installPhase = 'Pre-Uninstallation'
 		
 		## Show Welcome Message, close MMC with a 60 second countdown before automatically closing
-		Show-InstallationWelcome -CloseApps '' -CloseAppsCountdown 60 #// Specify the process name of any app or apps (seperated by a comma) that you would like to be closed before this app is uninstalled
+		# Show-InstallationWelcome -CloseApps '' -CloseAppsCountdown 60 #// Specify the process name of any app or apps (seperated by a comma) that you would like to be closed before this app is uninstalled
 		
         ## Show Progress Message (with the default message)
 		Show-InstallationProgress #//Custom messgae if desired
@@ -197,19 +192,15 @@ Try {
 		
 		# <Perform Uninstallation tasks here>
 		
-
-
-
+        ## Uninstalls the EXE file using the *.exe located in the Files directory
+        Show-InstallationProgress -StatusMessage "Uninstalling $appVendor $appName $appVersion ..."
+        Write-Log -Message "Uninstalling $appVendor $appName $appVersion ..."
+        Execute-Process -Path 'SETUP.exe' -Parameters '/S'
 
         ## Uninstalls the EXE file using the *.exe located in the Files directory
         Show-InstallationProgress -StatusMessage "Uninstalling $appVendor $appName $appVersion ..."
         Write-Log -Message "Uninstalling $appVendor $appName $appVersion ..."
-        Execute-Process -Path '*.exe' -Parameters '/uninstall /quiet /norestart'
-
-        ## Uninstalls the MSI file using the *.msi located in the Files directory
-        Show-InstallationProgress -StatusMessage "Uninstalling $appVendor $appName $appVersion ..."
-        Write-Log -Message "Uninstalling $appVendor $appName $appVersion ..."
-        Execute-MSI -Action Uninstall -Path '*.msi'
+        Execute-Process -Path 'CLCleaner2-PowerDVD_9.0.exe' -Parameters '/S'
 
 		##*===============================================
 		##* POST-UNINSTALLATION
