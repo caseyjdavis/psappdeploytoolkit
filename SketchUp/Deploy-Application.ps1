@@ -151,7 +151,11 @@ Try {
 		## <Perform Post-Installation tasks here>
         
         # Insert any post-install steps here (delete a desktop shortcut or copy item to startup etc.
-        
+        #Cleans up icons
+        If (Test-Path "$envCommonDesktop\LayOut 2016.lnk") {Remove-Item "$envCommonDesktop\LayOut 2016.lnk" -Force}
+        If (Test-Path "$envCommonDesktop\SketchUp 2016.lnk") {Remove-Item "$envCommonDesktop\SketchUp 2016.lnk" -Force}
+        If (Test-Path "$envCommonDesktop\Style Builder 2016.lnk") {Remove-Item "$envCommonDesktop\Style Builder 2016.lnk" -Force}
+
         # Sets a custom registry value to indicate that this application was installed using the psappdeploytoolkit
         If (!(Test-RegistryValue -Key 'HKLM:\SOFTWARE\Poudre School District\Applications' -Value $appName $appVersion -Verbose)){
               Set-RegistryKey -Key 'HKLM:\SOFTWARE\Poudre School District\Applications' -Value $appVersion $appName -Type String; Write-Log "Added $appname $appVersion to Registry branding" }		
