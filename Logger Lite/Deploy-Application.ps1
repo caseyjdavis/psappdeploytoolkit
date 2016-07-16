@@ -151,7 +151,9 @@ Try {
 		## <Perform Post-Installation tasks here>
         
         # Insert any post-install steps here (delete a desktop shortcut or copy item to startup etc.
-        
+        #Cleans up icons
+        If (Test-Path "$envCommonDesktop\Logger Lite 1.9.lnk") {Remove-Item "$envCommonDesktop\Logger Lite 1.9.lnk" -Force}
+
         # Sets a custom registry value to indicate that this application was installed using the psappdeploytoolkit
         If (!(Test-RegistryValue -Key 'HKLM:\SOFTWARE\Poudre School District\Applications' -Value $appName $appVersion -Verbose)){
               Set-RegistryKey -Key 'HKLM:\SOFTWARE\Poudre School District\Applications' -Value $appVersion $appName -Type String; Write-Log "Added $appname $appVersion to Registry branding" }		
